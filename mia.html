@@ -3,256 +3,589 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Para Mía 🌻</title>
 
 <style>
-* {
-    box-sizing: border-box;
+*{
+    box-sizing:border-box;
 }
 
-body {
-    margin: 0;
-    background: white;
-    font-family: Georgia, "Times New Roman", serif;
-    overflow: hidden;
+html,body{
+    margin:0;
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    font-family:Georgia,"Times New Roman",serif;
+    background:#fdfcf8;
 }
 
-/* HOJA */
-.hoja {
-    width: 100vw;
-    height: 100vh;
-    position: relative;
-    background: #fff;
+body{
+    color:#222;
 }
 
-/* TÍTULO */
-.titulo {
-    position: absolute;
-    left: 8%;
-    top: 25%;
-    font-size: clamp(17px, 2.1vw, 30px);
-    font-weight: bold;
-    color: #111;
-    z-index: 5;
+/* =========================
+   PANTALLA INICIAL
+========================= */
+
+.inicio{
+    position:fixed;
+    inset:0;
+    z-index:1000;
+    background:
+        radial-gradient(circle at center,#fffef8 0%,#f7f4e9 100%);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    transition:opacity 1.5s ease;
 }
 
-.titulo span {
-    font-size: 22px;
+.inicio.oculto{
+    opacity:0;
+    pointer-events:none;
 }
 
-/* TEXTO */
-.mensaje {
-    position: absolute;
-    left: 8%;
-    top: 34%;
-    width: 38%;
-    max-width: 480px;
-
-    font-size: clamp(15px, 1.65vw, 24px);
-    line-height: 1.42;
-    font-weight: bold;
-    color: #111;
-
-    opacity: 0;
-    animation: aparecerTexto 2s ease forwards;
-    animation-delay: 5s;
+.inicio h1{
+    font-size:clamp(25px,5vw,50px);
+    color:#3d3d3d;
+    margin-bottom:30px;
+    text-align:center;
 }
 
-@keyframes aparecerTexto {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
+.boton{
+    border:0;
+    background:#f2c300;
+    color:#fff;
+    padding:15px 30px;
+    border-radius:30px;
+    font-size:18px;
+    font-family:Georgia,serif;
+    cursor:pointer;
+    box-shadow:0 5px 20px rgba(190,150,0,.25);
+    transition:.3s;
+}
+
+.boton:hover{
+    transform:scale(1.05);
+}
+
+/* =========================
+   ESCENA
+========================= */
+
+.escena{
+    position:relative;
+    width:100vw;
+    height:100vh;
+    overflow:hidden;
+
+    background:
+        radial-gradient(
+            ellipse at 50% 45%,
+            #ffffff 0%,
+            #fdfcf8 50%,
+            #f4f1e7 100%
+        );
+}
+
+/* Luz suave */
+.luz{
+    position:absolute;
+    width:55vw;
+    height:55vw;
+    max-width:700px;
+    max-height:700px;
+    left:50%;
+    top:42%;
+    transform:translate(-50%,-50%);
+    border-radius:50%;
+    background:rgba(255,226,91,.10);
+    filter:blur(50px);
+}
+
+/* =========================
+   TEXTO SUPERIOR
+========================= */
+
+.titulo{
+    position:absolute;
+    left:7%;
+    top:10%;
+    z-index:20;
+
+    font-weight:bold;
+    color:#505b72;
+
+    font-size:clamp(18px,2.3vw,34px);
+    line-height:1.1;
+
+    opacity:0;
+    transform:translateY(15px);
+}
+
+.titulo.mostrar{
+    animation:aparecer 1.5s forwards;
+}
+
+/* =========================
+   SUELO
+========================= */
+
+.suelo{
+    position:absolute;
+    left:0;
+    bottom:15%;
+    width:100%;
+    height:3px;
+    background:#222;
+    opacity:.7;
+}
+
+/* =========================
+   SEMILLA
+========================= */
+
+.semilla{
+    position:absolute;
+    width:16px;
+    height:22px;
+
+    left:50%;
+    top:-50px;
+
+    transform:translateX(-50%) rotate(35deg);
+
+    background:#765020;
+    border-radius:70% 25% 70% 25%;
+
+    z-index:15;
+
+    opacity:0;
+}
+
+.semilla.caer{
+    opacity:1;
+    animation:
+        caerSemilla 2.2s cubic-bezier(.35,.05,.45,1) forwards;
+}
+
+@keyframes caerSemilla{
+    0%{
+        top:-50px;
+        transform:translateX(-50%) rotate(35deg);
     }
 
-    to {
-        opacity: 1;
-        transform: translateY(0);
+    80%{
+        top:76%;
+        transform:translateX(-50%) rotate(380deg);
+    }
+
+    90%{
+        top:73%;
+    }
+
+    100%{
+        top:75%;
+        transform:translateX(-50%) rotate(390deg);
     }
 }
 
-/* ÁRBOL */
-.arbol {
-    position: absolute;
-    right: 7%;
-    bottom: 18%;
-    width: 45%;
-    height: 67%;
+/* =========================
+   ÁRBOL
+========================= */
+
+.arbol{
+    position:absolute;
+
+    left:50%;
+    bottom:15%;
+
+    width:520px;
+    height:65%;
+
+    transform:translateX(-50%);
+
+    z-index:5;
+
+    pointer-events:none;
 }
 
-/* TRONCO */
-.tronco {
-    position: absolute;
-    bottom: 0;
-    left: 48%;
-    width: 42px;
-    height: 30%;
-    background: #079b91;
-    clip-path: polygon(
-        25% 0,
-        75% 0,
-        100% 100%,
-        0 100%
-    );
-    z-index: 1;
+/* Tronco */
+.tronco{
+    position:absolute;
+
+    left:50%;
+    bottom:0;
+
+    width:25px;
+    height:0;
+
+    transform:translateX(-50%);
+
+    background:
+        linear-gradient(
+            90deg,
+            #24594e,
+            #178f82,
+            #0f6e64
+        );
+
+    border-radius:15px 15px 3px 3px;
+
+    transform-origin:bottom;
+
+    transition:height 3.5s cubic-bezier(.25,.8,.25,1);
 }
 
-/* CORAZÓN */
-.corazon {
-    position: absolute;
-    width: 100%;
-    height: 90%;
-    left: 0;
-    top: 0;
+/* ramas */
+
+.rama{
+    position:absolute;
+    height:12px;
+    width:0;
+
+    background:#14776c;
+    border-radius:20px;
+
+    transform-origin:left center;
+
+    transition:width 2s ease;
 }
 
-/* GIRASOL */
-.flor {
-    position: absolute;
-    width: 25px;
-    height: 25px;
-
-    opacity: 0;
-    transform: scale(0);
-
-    animation: florecer .35s ease forwards;
+/* posiciones */
+.rama1{
+    left:50%;
+    bottom:42%;
+    transform:rotate(-35deg);
 }
 
-@keyframes florecer {
-    0% {
-        opacity: 0;
-        transform: scale(0) rotate(-30deg);
+.rama2{
+    left:50%;
+    bottom:51%;
+    transform:rotate(32deg);
+}
+
+.rama3{
+    left:50%;
+    bottom:61%;
+    transform:rotate(-28deg);
+}
+
+.rama4{
+    left:50%;
+    bottom:69%;
+    transform:rotate(30deg);
+}
+
+.rama5{
+    left:50%;
+    bottom:77%;
+    transform:rotate(-20deg);
+}
+
+/* =========================
+   GIRASOLES
+========================= */
+
+.girasol{
+    position:absolute;
+
+    width:32px;
+    height:32px;
+
+    opacity:0;
+    transform:scale(0);
+
+    z-index:10;
+}
+
+.girasol.mostrar{
+    animation:
+        florecer .8s cubic-bezier(.2,1.4,.4,1) forwards;
+}
+
+@keyframes florecer{
+    0%{
+        opacity:0;
+        transform:scale(0) rotate(-50deg);
     }
 
-    70% {
-        transform: scale(1.15) rotate(5deg);
+    70%{
+        transform:scale(1.18) rotate(10deg);
     }
 
-    100% {
-        opacity: 1;
-        transform: scale(1) rotate(0);
+    100%{
+        opacity:1;
+        transform:scale(1) rotate(0);
     }
 }
 
-.petalo {
-    position: absolute;
-    width: 11px;
-    height: 15px;
-    background: #f5b900;
-    border-radius: 50%;
+/* pétalos del girasol */
+
+.petalo{
+    position:absolute;
+
+    width:13px;
+    height:19px;
+
+    left:9px;
+    top:6px;
+
+    border-radius:60% 60% 50% 50%;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffe45c,
+            #e7a900
+        );
+
+    transform-origin:6px 10px;
 }
 
-.p1 {
-    left: 7px;
-    top: 0;
+.p1{transform:rotate(0deg) translateY(-9px);}
+.p2{transform:rotate(45deg) translateY(-9px);}
+.p3{transform:rotate(90deg) translateY(-9px);}
+.p4{transform:rotate(135deg) translateY(-9px);}
+.p5{transform:rotate(180deg) translateY(-9px);}
+.p6{transform:rotate(225deg) translateY(-9px);}
+.p7{transform:rotate(270deg) translateY(-9px);}
+.p8{transform:rotate(315deg) translateY(-9px);}
+
+.centro{
+    position:absolute;
+
+    width:12px;
+    height:12px;
+
+    left:10px;
+    top:10px;
+
+    border-radius:50%;
+
+    background:
+        radial-gradient(
+            circle,
+            #8d5a16 20%,
+            #5b3508 70%
+        );
+
+    z-index:3;
 }
 
-.p2 {
-    left: 13px;
-    top: 5px;
-    transform: rotate(72deg);
+/* =========================
+   PÉTALOS QUE CAEN
+========================= */
+
+.petalo-caida{
+    position:absolute;
+
+    width:13px;
+    height:18px;
+
+    border-radius:70% 30% 70% 30%;
+
+    background:#f3c300;
+
+    z-index:30;
+
+    pointer-events:none;
+
+    animation:
+        caerPetalo linear forwards;
 }
 
-.p3 {
-    left: 10px;
-    top: 12px;
-    transform: rotate(144deg);
-}
+@keyframes caerPetalo{
 
-.p4 {
-    left: 1px;
-    top: 12px;
-    transform: rotate(216deg);
-}
-
-.p5 {
-    left: 0;
-    top: 5px;
-    transform: rotate(288deg);
-}
-
-.centro {
-    position: absolute;
-    width: 7px;
-    height: 7px;
-    left: 9px;
-    top: 9px;
-    border-radius: 50%;
-    background: #5b3500;
-    z-index: 2;
-}
-
-/* LÍNEA */
-.linea {
-    position: absolute;
-    bottom: 13%;
-    left: 10%;
-    width: 80%;
-    height: 3px;
-    background: #111;
-}
-
-/* FIRMA */
-.firma {
-    position: absolute;
-    bottom: 15%;
-    left: 45%;
-    font-family: cursive;
-    font-size: clamp(14px, 1.8vw, 24px);
-    font-style: italic;
-    color: #111;
-    z-index: 5;
-}
-
-/* MÓVIL */
-@media(max-width: 700px) {
-
-    .titulo {
-        left: 7%;
-        top: 18%;
-        font-size: 16px;
+    0%{
+        opacity:0;
+        transform:
+            translate3d(0,0,0)
+            rotate(0deg);
     }
 
-    .mensaje {
-        left: 7%;
-        top: 27%;
-        width: 43%;
-        font-size: 12px;
-        line-height: 1.4;
+    10%{
+        opacity:.95;
     }
 
-    .arbol {
-        right: 1%;
-        bottom: 22%;
-        width: 55%;
-        height: 55%;
+    50%{
+        transform:
+            translate3d(
+                calc(var(--movimiento) * .5),
+                45vh,
+                0
+            )
+            rotate(180deg);
     }
 
-    .flor {
-        width: 18px;
-        height: 18px;
+    100%{
+        opacity:0;
+        transform:
+            translate3d(
+                var(--movimiento),
+                90vh,
+                0
+            )
+            rotate(360deg);
+    }
+}
+
+/* =========================
+   MENSAJE
+========================= */
+
+.mensaje{
+    position:absolute;
+
+    left:7%;
+    top:31%;
+
+    width:38%;
+    max-width:540px;
+
+    color:#515c72;
+
+    font-size:clamp(15px,1.55vw,24px);
+    line-height:1.45;
+
+    font-weight:bold;
+
+    opacity:0;
+
+    z-index:50;
+
+    transition:
+        opacity 2s ease,
+        transform 2s ease;
+
+    transform:translateY(20px);
+}
+
+.mensaje.mostrar{
+    opacity:1;
+    transform:translateY(0);
+}
+
+/* =========================
+   FRASE INFERIOR
+========================= */
+
+.frase-final{
+    position:absolute;
+
+    left:50%;
+    bottom:17%;
+
+    transform:translateX(-50%);
+
+    font-size:clamp(13px,1.4vw,20px);
+
+    color:#555;
+
+    font-style:italic;
+
+    opacity:0;
+
+    z-index:60;
+
+    transition:opacity 2s ease;
+}
+
+.frase-final.mostrar{
+    opacity:1;
+}
+
+/* =========================
+   CORAZÓN LUMINOSO
+========================= */
+
+.resplandor{
+    position:absolute;
+
+    left:50%;
+    top:43%;
+
+    width:400px;
+    height:400px;
+
+    transform:translate(-50%,-50%);
+
+    border-radius:50%;
+
+    background:rgba(255,214,30,.08);
+
+    filter:blur(45px);
+
+    opacity:0;
+
+    transition:opacity 3s;
+
+    z-index:1;
+}
+
+.resplandor.mostrar{
+    opacity:1;
+}
+
+/* =========================
+   MÓVIL
+========================= */
+
+@media(max-width:700px){
+
+    .titulo{
+        left:6%;
+        top:8%;
+        width:50%;
+        font-size:17px;
     }
 
-    .petalo {
-        width: 8px;
-        height: 11px;
+    .mensaje{
+        left:6%;
+        top:24%;
+        width:44%;
+        font-size:12px;
+        line-height:1.35;
     }
 
-    .centro {
-        width: 5px;
-        height: 5px;
-        left: 6px;
-        top: 6px;
+    .arbol{
+        width:290px;
+        height:48%;
+        bottom:18%;
     }
 
-    .firma {
-        left: 42%;
-        bottom: 16%;
-        font-size: 12px;
+    .girasol{
+        width:22px;
+        height:22px;
     }
 
-    .linea {
-        bottom: 13%;
+    .petalo{
+        width:9px;
+        height:14px;
+        left:6px;
+        top:4px;
+    }
+
+    .centro{
+        width:8px;
+        height:8px;
+        left:7px;
+        top:7px;
+    }
+
+    .rama{
+        height:7px;
+    }
+
+    .suelo{
+        bottom:15%;
+    }
+
+    .frase-final{
+        width:80%;
+        text-align:center;
+        bottom:17%;
+        font-size:11px;
     }
 }
 </style>
@@ -260,68 +593,180 @@ body {
 
 <body>
 
-<div class="hoja">
+<!-- =========================
+     PANTALLA PARA INICIAR
+========================= -->
 
-    <!-- TÍTULO DEL VIDEO -->
-    <div class="titulo">
-        🌻 FELIZ DÍA DE LAS FLORES<br>
-        AMARILLAS 🌻
-    </div>
+<div class="inicio" id="inicio">
 
-    <!-- TU FRASE PARA MÍA -->
-    <div class="mensaje">
-        CADA GIRASOL QUE VES AQUÍ ES UN LATIDO DE MI CORAZÓN...
-        AUNQUE TUS MAÑANAS Y MIS TARDES NO COINCIDAN EN EL COLEGIO,
-        NO HAY DISTANCIA NI HORARIOS QUE BORREN TODO LO QUE SIENTO
-        POR TI EN ESTE AÑO; CADA DÍA QUE PASA ES UN DÍA MENOS PARA
-        VOLVER A ABRAZARTE, MÍA.
-    </div>
+    <h1>🌻 Para Mía 🌻</h1>
 
-    <!-- ÁRBOL DE GIRASOLES -->
-    <div class="arbol">
-
-        <div class="corazon" id="corazon"></div>
-
-        <div class="tronco"></div>
-
-    </div>
-
-    <!-- LÍNEA INFERIOR -->
-    <div class="linea"></div>
-
-    <!-- TEXTO INFERIOR DEL ESTILO DEL VIDEO -->
-    <div class="firma">
-        Eres el sol que hace florecer cada uno de mis días.
-    </div>
+    <button class="boton" id="comenzar">
+        Toca para comenzar 💛
+    </button>
 
 </div>
 
+
+<!-- =========================
+     ESCENA
+========================= -->
+
+<div class="escena">
+
+    <div class="luz"></div>
+
+    <div class="resplandor" id="resplandor"></div>
+
+    <div class="titulo" id="titulo">
+        🌻 FELIZ DÍA DE LAS<br>
+        FLORES AMARILLAS 🌻
+    </div>
+
+    <div class="semilla" id="semilla"></div>
+
+    <div class="arbol" id="arbol">
+
+        <div class="tronco" id="tronco"></div>
+
+        <div class="rama rama1"></div>
+        <div class="rama rama2"></div>
+        <div class="rama rama3"></div>
+        <div class="rama rama4"></div>
+        <div class="rama rama5"></div>
+
+    </div>
+
+    <div class="mensaje" id="mensaje">
+
+        Cada girasol que ves aquí es un latido de mi corazón...
+        Aunque tus mañanas y mis tardes no coincidan en el colegio,
+        no hay distancia ni horarios que borren todo lo que siento
+        por ti en este año; cada día que pasa es un día menos para
+        volver a abrazarte, Mía.
+
+    </div>
+
+    <div class="frase-final" id="fraseFinal">
+        Cada flor lleva un poquito de lo que siento por ti. 🌻
+    </div>
+
+    <div class="suelo"></div>
+
+</div>
+
+
 <script>
 
-/* Crear muchos girasoles formando un corazón */
+/* ==================================================
+   ELEMENTOS
+================================================== */
 
-const corazon = document.getElementById("corazon");
+const inicio = document.getElementById("inicio");
+const boton = document.getElementById("comenzar");
+const semilla = document.getElementById("semilla");
+const tronco = document.getElementById("tronco");
+const titulo = document.getElementById("titulo");
+const mensaje = document.getElementById("mensaje");
+const fraseFinal = document.getElementById("fraseFinal");
+const resplandor = document.getElementById("resplandor");
+const arbol = document.getElementById("arbol");
 
-let numero = 0;
+let audioContext;
+let intervaloMusica;
 
-/* Ecuación del corazón */
-for (let y = -1.25; y <= 1.25; y += 0.12) {
 
-    for (let x = -1.45; x <= 1.45; x += 0.12) {
+/* ==================================================
+   MÚSICA ROMÁNTICA GENERADA
+================================================== */
 
-        let formula =
-            Math.pow(x * x + y * y - 1, 3)
-            - x * x * Math.pow(y, 3);
+function iniciarMusica(){
 
-        if (formula <= 0) {
+    audioContext =
+        new (window.AudioContext ||
+             window.webkitAudioContext)();
 
-            let flor = document.createElement("div");
-            flor.className = "flor";
+    const notas = [
+        261.63, // C
+        329.63, // E
+        392.00, // G
+        493.88, // B
+        392.00, // G
+        329.63, // E
 
-            /*
-            Convertimos las coordenadas
-            en posición dentro del corazón
-            */
+        293.66, // D
+        349.23, // F
+        440.00, // A
+        523.25, // C
+        440.00, // A
+        349.23  // F
+    ];
 
-            let left = 50 + (x / 1.45) * 48;
-            let top = 43 + (y / 1.25) * 40
+    let posicion = 0;
+
+    function tocarNota(){
+
+        const oscilador =
+            audioContext.createOscillator();
+
+        const ganancia =
+            audioContext.createGain();
+
+        oscilador.type = "sine";
+
+        oscilador.frequency.value =
+            notas[posicion % notas.length];
+
+        ganancia.gain.setValueAtTime(
+            0,
+            audioContext.currentTime
+        );
+
+        ganancia.gain.linearRampToValueAtTime(
+            0.045,
+            audioContext.currentTime + .15
+        );
+
+        ganancia.gain.exponentialRampToValueAtTime(
+            0.001,
+            audioContext.currentTime + 1.6
+        );
+
+        oscilador.connect(ganancia);
+        ganancia.connect(audioContext.destination);
+
+        oscilador.start();
+        oscilador.stop(
+            audioContext.currentTime + 1.7
+        );
+
+        posicion++;
+    }
+
+    tocarNota();
+
+    intervaloMusica =
+        setInterval(tocarNota,650);
+}
+
+
+/* ==================================================
+   CREAR GIRASOLES
+================================================== */
+
+function crearGirasol(x,y,delay){
+
+    const flor =
+        document.createElement("div");
+
+    flor.className="girasol";
+
+    flor.style.left=x+"%";
+    flor.style.top=y+"%";
+
+    flor.dataset.delay=delay;
+
+    flor.innerHTML=`
+        <div class="petalo p1"></div>
+        <div class="petalo p2"></div>
+        <div class="petalo p3"></
