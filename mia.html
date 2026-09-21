@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Para Mía 🌻</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: white;
+    font-family: Georgia, "Times New Roman", serif;
+    overflow: hidden;
+}
+
+/* HOJA */
+.hoja {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    background: #fff;
+}
+
+/* TÍTULO */
+.titulo {
+    position: absolute;
+    left: 8%;
+    top: 25%;
+    font-size: clamp(17px, 2.1vw, 30px);
+    font-weight: bold;
+    color: #111;
+    z-index: 5;
+}
+
+.titulo span {
+    font-size: 22px;
+}
+
+/* TEXTO */
+.mensaje {
+    position: absolute;
+    left: 8%;
+    top: 34%;
+    width: 38%;
+    max-width: 480px;
+
+    font-size: clamp(15px, 1.65vw, 24px);
+    line-height: 1.42;
+    font-weight: bold;
+    color: #111;
+
+    opacity: 0;
+    animation: aparecerTexto 2s ease forwards;
+    animation-delay: 5s;
+}
+
+@keyframes aparecerTexto {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ÁRBOL */
+.arbol {
+    position: absolute;
+    right: 7%;
+    bottom: 18%;
+    width: 45%;
+    height: 67%;
+}
+
+/* TRONCO */
+.tronco {
+    position: absolute;
+    bottom: 0;
+    left: 48%;
+    width: 42px;
+    height: 30%;
+    background: #079b91;
+    clip-path: polygon(
+        25% 0,
+        75% 0,
+        100% 100%,
+        0 100%
+    );
+    z-index: 1;
+}
+
+/* CORAZÓN */
+.corazon {
+    position: absolute;
+    width: 100%;
+    height: 90%;
+    left: 0;
+    top: 0;
+}
+
+/* GIRASOL */
+.flor {
+    position: absolute;
+    width: 25px;
+    height: 25px;
+
+    opacity: 0;
+    transform: scale(0);
+
+    animation: florecer .35s ease forwards;
+}
+
+@keyframes florecer {
+    0% {
+        opacity: 0;
+        transform: scale(0) rotate(-30deg);
+    }
+
+    70% {
+        transform: scale(1.15) rotate(5deg);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1) rotate(0);
+    }
+}
+
+.petalo {
+    position: absolute;
+    width: 11px;
+    height: 15px;
+    background: #f5b900;
+    border-radius: 50%;
+}
+
+.p1 {
+    left: 7px;
+    top: 0;
+}
+
+.p2 {
+    left: 13px;
+    top: 5px;
+    transform: rotate(72deg);
+}
+
+.p3 {
+    left: 10px;
+    top: 12px;
+    transform: rotate(144deg);
+}
+
+.p4 {
+    left: 1px;
+    top: 12px;
+    transform: rotate(216deg);
+}
+
+.p5 {
+    left: 0;
+    top: 5px;
+    transform: rotate(288deg);
+}
+
+.centro {
+    position: absolute;
+    width: 7px;
+    height: 7px;
+    left: 9px;
+    top: 9px;
+    border-radius: 50%;
+    background: #5b3500;
+    z-index: 2;
+}
+
+/* LÍNEA */
+.linea {
+    position: absolute;
+    bottom: 13%;
+    left: 10%;
+    width: 80%;
+    height: 3px;
+    background: #111;
+}
+
+/* FIRMA */
+.firma {
+    position: absolute;
+    bottom: 15%;
+    left: 45%;
+    font-family: cursive;
+    font-size: clamp(14px, 1.8vw, 24px);
+    font-style: italic;
+    color: #111;
+    z-index: 5;
+}
+
+/* MÓVIL */
+@media(max-width: 700px) {
+
+    .titulo {
+        left: 7%;
+        top: 18%;
+        font-size: 16px;
+    }
+
+    .mensaje {
+        left: 7%;
+        top: 27%;
+        width: 43%;
+        font-size: 12px;
+        line-height: 1.4;
+    }
+
+    .arbol {
+        right: 1%;
+        bottom: 22%;
+        width: 55%;
+        height: 55%;
+    }
+
+    .flor {
+        width: 18px;
+        height: 18px;
+    }
+
+    .petalo {
+        width: 8px;
+        height: 11px;
+    }
+
+    .centro {
+        width: 5px;
+        height: 5px;
+        left: 6px;
+        top: 6px;
+    }
+
+    .firma {
+        left: 42%;
+        bottom: 16%;
+        font-size: 12px;
+    }
+
+    .linea {
+        bottom: 13%;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="hoja">
+
+    <!-- TÍTULO DEL VIDEO -->
+    <div class="titulo">
+        🌻 FELIZ DÍA DE LAS FLORES<br>
+        AMARILLAS 🌻
+    </div>
+
+    <!-- TU FRASE PARA MÍA -->
+    <div class="mensaje">
+        CADA GIRASOL QUE VES AQUÍ ES UN LATIDO DE MI CORAZÓN...
+        AUNQUE TUS MAÑANAS Y MIS TARDES NO COINCIDAN EN EL COLEGIO,
+        NO HAY DISTANCIA NI HORARIOS QUE BORREN TODO LO QUE SIENTO
+        POR TI EN ESTE AÑO; CADA DÍA QUE PASA ES UN DÍA MENOS PARA
+        VOLVER A ABRAZARTE, MÍA.
+    </div>
+
+    <!-- ÁRBOL DE GIRASOLES -->
+    <div class="arbol">
+
+        <div class="corazon" id="corazon"></div>
+
+        <div class="tronco"></div>
+
+    </div>
+
+    <!-- LÍNEA INFERIOR -->
+    <div class="linea"></div>
+
+    <!-- TEXTO INFERIOR DEL ESTILO DEL VIDEO -->
+    <div class="firma">
+        Eres el sol que hace florecer cada uno de mis días.
+    </div>
+
+</div>
+
+<script>
+
+/* Crear muchos girasoles formando un corazón */
+
+const corazon = document.getElementById("corazon");
+
+let numero = 0;
+
+/* Ecuación del corazón */
+for (let y = -1.25; y <= 1.25; y += 0.12) {
+
+    for (let x = -1.45; x <= 1.45; x += 0.12) {
+
+        let formula =
+            Math.pow(x * x + y * y - 1, 3)
+            - x * x * Math.pow(y, 3);
+
+        if (formula <= 0) {
+
+            let flor = document.createElement("div");
+            flor.className = "flor";
+
+            /*
+            Convertimos las coordenadas
+            en posición dentro del corazón
+            */
+
+            let left = 50 + (x / 1.45) * 48;
+            let top = 43 + (y / 1.25) * 40
